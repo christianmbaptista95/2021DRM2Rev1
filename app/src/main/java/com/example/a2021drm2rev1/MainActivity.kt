@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         btnSmile.setOnClickListener {
 
+
+
+
             txtHello.text = "Olá, "+edtNome.text+ " Seja bem vindo(a)!"
 
 
@@ -30,12 +34,26 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG).show()
 
             if(tglSalvar.isChecked)
-                lista.add(edtNome.text.toString())
+                salvar()
 
-            //Toast.makeText(this,"Lista: " + lista.size,
-                //Toast.LENGTH_LONG).show()
         }
+
+
+
     }
+
+    private fun salvar(){
+
+        val n = Nome(edtNome.text.toString())
+
+        val nDao = NomeDataBase.getInstance(this)?.NomeDao()
+
+            nDao.salvar(n)
+
+
+
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
@@ -60,6 +78,5 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
 }
